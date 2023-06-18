@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:workflow_worker/custom_widget/space.dart';
 
 import 'package:workflow_worker/job/controller/job_add_controller.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -65,124 +66,22 @@ class AddJobWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => primaryFocus?.unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: transparent,
-          // leading: Visibility(
-          //   // visible: widget.fromProfile ? true : false,
-          //   child: IconButton(
-          //     icon: Icon(Icons.arrow_back, size: 20, color: Colors.black),
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //     },
-          title: const Text(
-            "Add Job",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
-          ),
-        ),
-        body: SingleChildScrollView(
+    return Material(
+      color: Colors.white,
+      child: GestureDetector(
+        onTap: () => primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  bottom: 10,
-                ),
-                child: Row(
-                  children: [
-                    OutlinedButton(
-                      onPressed: () async {
-                        await showSearch(
-                          context: context,
-                          delegate: CustomCommunitySearchDelegate(),
-                        );
-                        // setState(() {});
-                      },
-                      style: OutlinedButton.styleFrom(
-                        primary: Color.fromRGBO(225, 37, 255, 1),
-                        backgroundColor: Colors.transparent,
-                        side: BorderSide(
-                          width: 1.3,
-                          color: Color.fromRGBO(225, 37, 255, 1),
-                        ),
-                      ),
-                      child: Obx(
-                        () => Row(
-                          children: [
-                            Text(
-                              jobController.selectedTagName.value.isEmpty
-                                  ? 'Choose a Type'
-                                  : '${jobController.selectedTag.name}',
-                              style: TextStyle(),
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              color: Colors.black,
-                              size: 40,
-                            ),
-                          ],
-                        ),
-                      ),
-                      // color: Colors.purpleAccent,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  bottom: 10,
-                ),
-                child: Row(
-                  children: [
-                    OutlinedButton(
-                      onPressed: () async {
-                        // setState(() {});
-                        showDateTimePicker(context: context);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        primary: Color.fromRGBO(225, 37, 255, 1),
-                        backgroundColor: Colors.transparent,
-                        side: BorderSide(
-                          width: 1.3,
-                          color: Color.fromRGBO(225, 37, 255, 1),
-                        ),
-                      ),
-                      child: Obx(
-                        () => Row(
-                          children: [
-                            Text(
-                              !jobController.isDateTimeSelected.value
-                                  ? 'Choose a Date'
-                                  : '${DateFormat.yMd().add_jm().format(jobController.selectedDateTime.value)}',
-                              style: TextStyle(),
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              color: Colors.black,
-                              size: 40,
-                            ),
-                          ],
-                        ),
-                      ),
-                      // color: Colors.purpleAccent,
-                    ),
-                  ],
-                ),
-              ),
+              Space(60),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   controller: jobController.locationController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Location',
+                    labelText: 'Amount',
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
                         const Radius.circular(6),
@@ -191,70 +90,7 @@ class AddJobWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  left: 15,
-                  bottom: 10,
-                ),
-                child: Text(
-                  'Description',
-                  style: TextStyle().copyWith(
-                      fontSize: 14, color: Color.fromRGBO(113, 106, 106, 1)),
-                ),
-              ),
-              Container(
-                // padding: EdgeInsets.only(
-                //     bottom: MediaQuery.of(context).viewInsets.bottom),
-                margin: EdgeInsets.only(
-                  left: 15,
-                  right: 15,
-                ),
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.25,
-                child: TextField(
-                  controller: jobController.descriptionController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(6),
-                      ),
-                    ),
-                  ),
-                  maxLines: 8,
-                ),
-              ),
-              Obx(
-                () => Padding(
-                  padding: const EdgeInsets.all(36.0),
-                  child: Center(
-                    child: jobController.pickedImage.value.isEmpty
-                        ? PickImageBtn()
-                        : SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            width: MediaQuery.of(context).size.width * 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.file(
-                                File(jobController.pickedImage.value),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Obx(
-                  () => SizedBox(
-                    child: jobController.pickedImage.value.isEmpty
-                        ? null
-                        : PickImageBtn(
-                            label: 'Change Image',
-                          ),
-                  ),
-                ),
-              ),
+              Space(20),
               Obx(
                 () => Row(
                   children: [
@@ -270,7 +106,7 @@ class AddJobWidget extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary: Color.fromRGBO(69, 83, 243, 1)),
-                          onPressed: () => jobController.postJob(),
+                          onPressed: () => jobController.postBid(),
                           child: Text(jobController.isPosting.value
                               ? 'Posting...'
                               : 'Post'),
@@ -279,7 +115,8 @@ class AddJobWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              Space(60),
             ],
           ),
         ),

@@ -24,7 +24,8 @@ class JobController extends GetxController {
 
   void fetchActiveJobs() async {
     activeLoading(true);
-    final result = await api.getApi('/api/job/jobs/?is_open=true');
+    final result =
+        await api.getApi('/api/job/jobs/?is_open=true&is_worker=true');
     activeJobs.value = jobModelFromJson(result.body);
     activeLoading(false);
   }

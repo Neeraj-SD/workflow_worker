@@ -32,14 +32,6 @@ class _BookingsFragmentState extends State<BookingsFragment>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black87,
-        onPressed: () => Get.to(AddJobWidget()),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
       appBar: AppBar(
         // actions: [
         //   IconButton(

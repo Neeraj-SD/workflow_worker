@@ -148,4 +148,23 @@ class JobAddController extends GetxController {
 
     uploadJob(pickedImage.value);
   }
+
+  void postBid() async {
+    if (locationController.text.isEmpty) return;
+
+    isPosting(true);
+    final amount = locationController.text;
+    final value = int.parse(amount);
+    print(value);
+    print(jobController.selectedJob.id);
+
+    final data = {'job': jobController.selectedJob.id, 'amount': value};
+    final result = await api.postApi('/api/job/bids/', data);
+    jobController.fetchActiveJobs();
+    Get.back();
+    Get.back();
+    locationController.clear();
+    isPosting(false);
+    // uploadJob(pickedImage.value);
+  }
 }

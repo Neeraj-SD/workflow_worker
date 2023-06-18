@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:workflow_worker/custom_widget/add_job.dart';
 import 'package:workflow_worker/job/controller/job_controller.dart';
 import 'package:workflow_worker/screens/last_booking_screen.dart';
 import 'package:workflow_worker/utils/colors.dart';
 import 'package:workflow_worker/utils/expandable_text.dart';
+import 'package:workflow_worker/utils/images.dart';
 
 import '../custom_widget/space.dart';
 import '../main.dart';
@@ -71,8 +73,8 @@ class CancelBookingScreen extends StatelessWidget {
               ),
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text("Accept Bid")),
-              onPressed: () => controller.acceptBid(),
+                  child: Text("Add Bid")),
+              onPressed: () => Get.bottomSheet(AddJobWidget()),
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(
@@ -120,7 +122,7 @@ class CancelBookingScreen extends StatelessWidget {
                                           MediaQuery.of(context).size.height *
                                               0.10,
                                       child: Image.network(
-                                          selectedJob.image ?? '',
+                                          selectedJob.image ?? NOIMAGE,
                                           fit: BoxFit.cover),
                                     ),
                                   ),
@@ -313,76 +315,66 @@ class CancelBookingScreen extends StatelessWidget {
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: selectedJob.bids?.length ?? 0,
-                          itemBuilder: (context, index) => GestureDetector(
-                                onTap: () => controller.setSelectedBid(index),
-                                child: Obx(
-                                  () => Card(
-                                    color: controller.selectedBidIndex.value ==
-                                            index
-                                        ? cardColorDark
-                                        : cardColor,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: ListTile(
-                                          leading: CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                "${selectedJob.bids?[index].user?.picture}"),
-                                          ),
-                                          title: Text(
-                                            "${selectedJob.bids?[index].user?.name}",
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                color: controller
-                                                            .selectedBidIndex
-                                                            .value ==
-                                                        index
-                                                    ? Colors.white
-                                                    : greyColor,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
-                                          ),
-                                          subtitle: Row(
-                                            children: [
-                                              Icon(Icons.star,
-                                                  color: starIconColor,
-                                                  size: 16),
-                                              Text(
-                                                '${selectedJob.bids?[index].user?.userRating}',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
-                                            ],
-                                          ),
-                                          // subtitle: Text(
-                                          //   "Rating: ${selectedJob.bids?[index].user?.userRating}/5",
-                                          //   textAlign: TextAlign.start,
-                                          //   style: TextStyle(
-                                          //       color: controller
-                                          //                   .selectedBidIndex
-                                          //                   .value ==
-                                          //               index
-                                          //           ? Colors.white
-                                          //           : greyColor,
-                                          //       fontWeight: FontWeight.bold,
-                                          //       fontSize: 14),
-                                          // ),
-                                          trailing: Text(
-                                            "₹${selectedJob.bids?[index].amount}",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: controller
-                                                            .selectedBidIndex
-                                                            .value ==
-                                                        index
-                                                    ? Colors.white
-                                                    : null),
-                                          ),
-                                        )),
-                                  ),
+                          itemBuilder: (context, index) => Obx(
+                                () => Card(
+                                  color: cardColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child: ListTile(
+                                        leading: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                              "${selectedJob.bids?[index].user?.picture}"),
+                                        ),
+                                        title: Text(
+                                          "${selectedJob.bids?[index].user?.name}",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              color: controller.selectedBidIndex
+                                                          .value ==
+                                                      index
+                                                  ? Colors.white
+                                                  : greyColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14),
+                                        ),
+                                        subtitle: Row(
+                                          children: [
+                                            Icon(Icons.star,
+                                                color: starIconColor, size: 16),
+                                            Text(
+                                              '${selectedJob.bids?[index].user?.userRating}',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                            ),
+                                          ],
+                                        ),
+                                        // subtitle: Text(
+                                        //   "Rating: ${selectedJob.bids?[index].user?.userRating}/5",
+                                        //   textAlign: TextAlign.start,
+                                        //   style: TextStyle(
+                                        //       color: controller
+                                        //                   .selectedBidIndex
+                                        //                   .value ==
+                                        //               index
+                                        //           ? Colors.white
+                                        //           : greyColor,
+                                        //       fontWeight: FontWeight.bold,
+                                        //       fontSize: 14),
+                                        // ),
+                                        trailing: Text(
+                                          "₹${selectedJob.bids?[index].amount}",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: controller.selectedBidIndex
+                                                          .value ==
+                                                      index
+                                                  ? Colors.white
+                                                  : null),
+                                        ),
+                                      )),
                                 ),
                               )),
 

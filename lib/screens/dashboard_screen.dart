@@ -15,7 +15,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   DateTime? _currentBackPressTime;
 
   final _pageItem = [
-    HomeFragment(),
+    // HomeFragment(),
     // SearchFragment(),
     BookingsFragment(fromProfile: false),
     AccountFragment(),
@@ -52,11 +52,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
             elevation: 40,
             selectedFontSize: 16,
             items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined, size: 20),
-                activeIcon: Icon(Icons.home_rounded, size: 20),
-                label: "Home",
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.home_outlined, size: 20),
+              //   activeIcon: Icon(Icons.home_rounded, size: 20),
+              //   label: "Home",
+              // ),
               // BottomNavigationBarItem(
               //   icon: Icon(Icons.account_balance_wallet_outlined, size: 20),
               //   activeIcon: Icon(Icons.account_balance_wallet, size: 20),

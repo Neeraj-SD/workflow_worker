@@ -62,7 +62,7 @@ class ActiveBookingComponent extends StatelessWidget {
                       child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.06,
                         width: MediaQuery.of(context).size.height * 0.06,
-                        child: Image.network(jobModel?.image ?? '',
+                        child: Image.network(jobModel?.image ?? NOIMAGE,
                             fit: BoxFit.cover),
                       ),
                     ),
